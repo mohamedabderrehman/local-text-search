@@ -103,4 +103,4 @@ SearchWorker -. optional .-> Cython
 - [دراسة المشروع](docs/case-study.ar.md)
 - [التحقق](docs/verification.ar.md)
 - [مخطط البنية](docs/architecture.svg)
-- [صفحة المشروع](https://mohamed-abderrehmane-portfolio.wry-dog-0796.chatgpt.site/ar/projects/local-text-search/)
+- [صفحة المشروع](https://mohamed-abderrehmane-portfolio.hillock-factual9mupt.chatgpt.site/ar/projects/local-text-search/)

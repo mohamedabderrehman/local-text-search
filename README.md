@@ -113,4 +113,4 @@ Cython equivalence, Linux worker behavior and interrupted-job recovery remain un
 - [Case study](docs/case-study.md)
 - [Verification](docs/verification.md)
 - [Architecture diagram](docs/architecture.svg)
-- [Portfolio case study](https://mohamed-abderrehmane-portfolio.wry-dog-0796.chatgpt.site/projects/local-text-search/)
+- [Portfolio case study](https://mohamed-abderrehmane-portfolio.hillock-factual9mupt.chatgpt.site/projects/local-text-search/)

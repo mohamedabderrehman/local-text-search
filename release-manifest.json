@@ -26,13 +26,13 @@
   },
   {
     "path": "README.ar.md",
-    "bytes": 6779,
-    "sha256": "46e7af751c527acb899b949af85e403725be54a3ed35547772d07ec9cb5ec480"
+    "bytes": 6787,
+    "sha256": "fe419a18318de4d4c4382aea6d7bfe8b22f64ea270f91ca89664d1518663b96a"
   },
   {
     "path": "README.md",
-    "bytes": 6018,
-    "sha256": "71baabb10e0d1927e4293b55d7846f82c2062ea7c79f0aaa15bacbbcdde68edc"
+    "bytes": 6026,
+    "sha256": "6e1758711b0a1b35c1b4a648bffbc83be7843d04bdb867eabf2e9c3426dc1621"
   },
   {
     "path": "SECURITY.md",
@@ -148,6 +148,16 @@
     "path": "docs/images/search-results.jpg",
     "bytes": 33954,
     "sha256": "620342bc244242f0a457e7610f647f0fbf3c26392c21241a1ef542ef2b0b5b8f"
+  },
+  {
+    "path": "docs/publication.ar.md",
+    "bytes": 731,
+    "sha256": "5dbcb5a6ec208be15bca17428706023761c147c2d4d8412d29a9bf5198070e42"
+  },
+  {
+    "path": "docs/publication.md",
+    "bytes": 651,
+    "sha256": "75b38de8f12ddb6d7247a5aa5407c2fac1de130b08b022e03ee3094a595273ba"
   },
   {
     "path": "docs/setup.ar.md",
