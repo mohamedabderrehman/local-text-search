@@ -26,13 +26,13 @@
   },
   {
     "path": "README.ar.md",
-    "bytes": 6787,
-    "sha256": "fe419a18318de4d4c4382aea6d7bfe8b22f64ea270f91ca89664d1518663b96a"
+    "bytes": 6876,
+    "sha256": "63b94ad3c305ef7d8feea25057b94099b4b4205221a0e9304f781eb6d54fe4d4"
   },
   {
     "path": "README.md",
-    "bytes": 6026,
-    "sha256": "6e1758711b0a1b35c1b4a648bffbc83be7843d04bdb867eabf2e9c3426dc1621"
+    "bytes": 6107,
+    "sha256": "675d1e7be522a22c62e49ee5ffdc1ae54c1a6232e3cdb3e11bb54d93b09ac7ee"
   },
   {
     "path": "SECURITY.md",
@@ -143,6 +143,16 @@
     "path": "docs/deployment.md",
     "bytes": 1500,
     "sha256": "abad6abb4a309292eed9ed0328a04235f355455ccffdbb91273016974871a926"
+  },
+  {
+    "path": "docs/engineering-notes.ar.md",
+    "bytes": 1850,
+    "sha256": "6c71c98317dd25498f91bbc9ff59553a4b142b83a3400ad4f12d9a1ca2baa276"
+  },
+  {
+    "path": "docs/engineering-notes.md",
+    "bytes": 1435,
+    "sha256": "bf2588bd1055b7109c198197e4470124957a0521b63209ddf81eae9f2f896239"
   },
   {
     "path": "docs/images/search-results.jpg",
