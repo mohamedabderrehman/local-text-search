@@ -12,7 +12,7 @@
 
 تطبيق معالجة مجموعات نصوص محلية وإدارتها. يستخدم العرض نصوصاً مولدة فقط.
 
-هذه نسخة عرض منقحة للنشر. تعرض [وثيقة التحقق](docs/verification.md) الفحوص الحالية بصورة مستقلة عن النشر السابق.
+هذه نسخة عرض منقحة للنشر. تعرض [وثيقة التحقق](docs/verification.ar.md) الفحوص الحالية بصورة مستقلة عن النشر السابق.
 
 ## الوظائف والإجراءات
 
@@ -47,14 +47,14 @@ SearchWorker -. optional .-> Cython
 
 ## المجلدات
 
-| Component | Responsibility |
+| المكون | المسؤولية |
 |---|---|
-| `app.py` | Flask routes, job orchestration and result views |
-| `search_engine.py` | mmap scanning and worker selection |
-| `database.py` | SQLite users/jobs/results metadata |
-| `auth.py` | bcrypt and role helpers |
-| `search_engine_cython.pyx` | Optional accelerated matching |
-| `bootstrap_demo.py` | Synthetic corpus/admin bootstrap |
+| `app.py` | مسارات Flask وتنظيم الوظائف وعرض النتائج |
+| `search_engine.py` | مسح mmap واختيار العمال |
+| `database.py` | بيانات مستخدمي ووظائف ونتائج SQLite |
+| `auth.py` | تجزئة bcrypt وأدوات الصلاحيات |
+| `search_engine_cython.pyx` | مطابقة اختيارية مسرعة |
+| `bootstrap_demo.py` | إنشاء متن اصطناعي وحساب إدارة |
 
 ## التثبيت والإعداد
 
@@ -70,18 +70,37 @@ SearchWorker -. optional .-> Cython
 
 ## الحدود
 
-لا ندعي تسريعاً غير مقاس أو معالجة تيرابايت. يتطلب التسريع مترجماً. يحتاج التعافي من وظائف منقطعة والأنظمة الأخرى إلى فحوص مستقلة.
+لم يُفحص تطابق Cython وعمال Linux والتعافي من وظيفة منقطعة. القياس المرفق خاص بـPython على جهاز Windows الموثق وليس مقارنة تسريع. إدخال Telegram الاختياري معطل في العرض.
 
 ## التوثيق
 
 - [البنية](docs/architecture.ar.md)
 - [الإعداد](docs/setup.ar.md)
 - [العرض](docs/demo.ar.md)
-- [المسارات](docs/api.md)
-- [الفحوص الحالية](docs/verification.md)
-- [النشر وحل المشكلات](docs/deployment.md)
+- [المسارات](docs/api.ar.md)
+- [الفحوص الحالية](docs/verification.ar.md)
+- [النشر وحل المشكلات](docs/deployment.ar.md)
 - [حقوق الأصول](THIRD_PARTY_NOTICES.md)
 
 ## المساهمة والترخيص
 
 افتح مشكلة تتضمن خطوات إعادة الإنتاج والمكون المعني. استخدم بيانات اصطناعية وتعديلات مركزة وفحوصاً مناسبة، ولا ترسل أسراراً أو سجلات مستخدمين خاصة. الشيفرة بترخيص [MIT](LICENSE)، وتحتفظ الاعتماديات والأصول الخارجية بشروطها الأصلية.
+
+<!-- release-presentation -->
+
+## من التطبيق الفعلي
+
+![Local Text Search — واجهة ببيانات اصطناعية](docs/images/search-results.jpg)
+
+هذه لقطة فعلية للواجهة المحلية، وليست دليلاً على استخدام إنتاجي أو فحص أندرويد.
+
+## التحقق والقراءة المتعمقة
+
+نجحت اختبارات Python الستة: الأسطر الطويلة ومطابقة AND وعدم وجود نتائج والبايتات المختلطة وحد نتائج مشترك بين الملفات وملكية الوظيفة ورفض البحث دون دخول وفحص تراجع على ألف سطر. وجد قياس Windows دون Cython 800 نتيجة في 800 ألف سطر مولد بحجم 36,353,960 بايت؛ الأوقات 10.2452 و10.9746 و10.5983 ثانية دون تفريغ مخبأ النظام.
+
+لم يُفحص تطابق Cython وعمال Linux والتعافي من وظيفة منقطعة. القياس المرفق خاص بـPython على جهاز Windows الموثق وليس مقارنة تسريع. إدخال Telegram الاختياري معطل في العرض.
+
+- [دراسة المشروع](docs/case-study.ar.md)
+- [التحقق](docs/verification.ar.md)
+- [مخطط البنية](docs/architecture.svg)
+- [صفحة المشروع](https://mohamed-abderrehmane-portfolio.wry-dog-0796.chatgpt.site/ar/projects/local-text-search/)

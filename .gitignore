@@ -28,7 +28,6 @@ credentials.json
 google-services.json
 GoogleService-Info.plist
 local.properties
-release-manifest.json
 
 .next/
 *.tsbuildinfo
@@ -40,3 +39,20 @@ data/search.db
 results/
 sessions/
 search_engine_cython.c
+
+# Publication boundary: deployment files and every environment file spelling.
+*.env
+*.env.*
+!*.env.example
+.env
+.env.*
+!.env.example
+**/deploy/
+deploy.*
+deploy_*
+deploy-*
+.sftpconfig
+sftp.json
+ftp.json
+
+build-commands.ps1

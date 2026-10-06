@@ -95,3 +95,22 @@ Open an issue describing a reproducible problem, expected behavior and component
 ## License and attribution
 
 Source code is MIT licensed. Third-party dependencies and assets retain their own terms; see [attribution](THIRD_PARTY_NOTICES.md).
+
+<!-- release-presentation -->
+
+## Actual application interface
+
+![Local Text Search — interface with synthetic demonstration data](docs/images/search-results.jpg)
+
+Captured from the local application with synthetic records. This does not establish production usage or Android device verification.
+
+## Verification and deeper reading
+
+All six Python regression/access tests passed: long lines and AND matching, zero/mixed-byte cases, a shared result budget across files, job ownership, unauthenticated search, and a 1,000-line matching regression. A measured Windows Python-only benchmark found exactly 800 matches in 800,000 generated lines (36,353,960 bytes); three runs took 10.2452, 10.9746 and 10.5983 seconds. OS caches were not flushed.
+
+Cython equivalence, Linux worker behavior and interrupted-job recovery remain unverified. Included benchmark is Python-only on the documented Windows machine, not a speedup comparison. Optional Telegram ingestion is disabled for demos.
+
+- [Case study](docs/case-study.md)
+- [Verification](docs/verification.md)
+- [Architecture diagram](docs/architecture.svg)
+- [Portfolio case study](https://mohamed-abderrehmane-portfolio.wry-dog-0796.chatgpt.site/projects/local-text-search/)

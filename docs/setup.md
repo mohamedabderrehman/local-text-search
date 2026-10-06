@@ -1,4 +1,25 @@
-# Setup and configuration
+# Clean setup
+
+Use Python 3.12 for the recorded checks. Export .env.example values into the process; config.py resolves relative paths from the application root. Set a persistent SECRET_KEY for sessions and ENABLE_TELEGRAM=0. bootstrap_demo.py prompts for a fresh 12-character administrator password and writes generated text only when absent. Cython is optional and requires a compiler; Python remains the default verified path.
+
+## Commands
+
+```sh
+python -m venv .venv
+# Activate .venv for your shell, then:
+python -m pip install -r requirements.txt
+python bootstrap_demo.py
+python app.py
+# Separate terminal with the same virtual environment:
+python -m unittest discover -s tests
+python tools/benchmark.py
+# Optional acceleration (requires a compiler):
+python -m pip install -r requirements.acceleration.txt
+python setup.py build_ext --inplace
+python -m unittest discover -s tests
+```
+
+## Complete configuration inventory
 
 Create a Python virtual environment, install `pip install -r requirements.txt`, export the variables in `.env.example`, run `python bootstrap_demo.py`, then `python run.py`. Python does not automatically load `.env`; export values in your shell. For acceleration install `requirements.acceleration.txt` and run `python setup.py build_ext --inplace` with a working C compiler. Telegram requires `requirements.telegram.txt` and explicit `ENABLE_TELEGRAM=1`; it remains disabled for demos.
 
@@ -34,3 +55,6 @@ Environment examples do not load themselves. Node dotenv modules read local `.en
 | `auth.py` | bcrypt and role helpers |
 | `search_engine_cython.pyx` | Optional accelerated matching |
 | `bootstrap_demo.py` | Synthetic corpus/admin bootstrap |
+
+
+Variables in the inventory are not all mandatory: the preceding prerequisites identify the required core values. Provider variables are required only for their enabled live integration. Tests may use DEMO_API_URL to override the local target. Never point bootstrap/reset/check scripts at a production database.

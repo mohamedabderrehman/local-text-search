@@ -16,3 +16,16 @@ See the source entry points below; this project does not declare Express/Flask r
 ## الاستخدام
 
 المسارات المذكورة محلية للموجه وتحتاج بادئة الربط في الخادم. ملفات PHP هي مرجع المسارات ما لم تُعَد كتابتها. استخدم بيانات اصطناعية وفحوص الصلاحيات الموجودة في الشيفرة.
+
+
+## Representative usage
+
+The application is a session-based Flask interface. A job belongs to its initiating user; status, result pages and downloads enforce that ownership. Keywords separated by spaces use AND matching. Results are files plus SQLite metadata rather than a search index.
+
+```sh
+python bootstrap_demo.py
+python app.py
+# Sign in at /login, submit /search, open /job/<id>.
+# Status: /api/job/<id>/status. Download: /job/<id>/download.
+python -m unittest discover -s tests
+```
