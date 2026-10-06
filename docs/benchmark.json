@@ -1,0 +1,28 @@
+{
+  "platform": "Windows-10-10.0.19045-SP0",
+  "processor": "Intel64 Family 6 Model 140 Stepping 1, GenuineIntel",
+  "logical_cpus": 4,
+  "python": "3.12.10",
+  "cython": false,
+  "bytes": 36353960,
+  "files": 4,
+  "lines": 800000,
+  "cache_condition": "First process run and immediate repeats; OS page cache not flushed. No cold-cache claim.",
+  "runs": [
+    {
+      "run": 1,
+      "seconds": 10.2452,
+      "matches": 800
+    },
+    {
+      "run": 2,
+      "seconds": 10.9746,
+      "matches": 800
+    },
+    {
+      "run": 3,
+      "seconds": 10.5983,
+      "matches": 800
+    }
+  ]
+}

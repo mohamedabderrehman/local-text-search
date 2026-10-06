@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وظيفة البحث #{{ job.id }} - نظام البحث</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .job-header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .job-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .job-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .job-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-running {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .actions {
+            margin-top: 20px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .results-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .results-header {
+            padding: 20px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .result-item {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .result-text {
+            font-family: 'Courier New', monospace;
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            word-break: break-word;
+        }
+        
+        .pagination {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .pagination a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 5px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .pagination a:hover {
+            background: #5568d3;
+        }
+        
+        .pagination .current {
+            background: #764ba2;
+        }
+        
+        .empty-state {
+            padding: 40px;
+            text-align: center;
+            color: #999;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+    </style>
+    <script>
+        {% if job.status == 'running' %}
+        // تحديث تلقائي للحالة
+        function updateStatus() {
+            fetch('/api/job/{{ job.id }}/status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status !== 'running') {
+                        location.reload();
+                    } else {
+                        // تحديث عدد النتائج
+                        const matchesCountEl = document.getElementById('matches-count');
+                        if (matchesCountEl) {
+                            matchesCountEl.textContent = data.matches_count.toLocaleString();
+                        }
+                        
+                        // تحديث تقدم الملفات
+                        const filesProgressEl = document.getElementById('files-progress');
+                        if (filesProgressEl) {
+                            filesProgressEl.textContent = `${data.files_searched}/${data.total_files}`;
+                        }
+                        
+                        // تحديث إجمالي النتائج
+                        const totalResultsEl = document.getElementById('total-results');
+                        if (totalResultsEl) {
+                            totalResultsEl.textContent = data.matches_count.toLocaleString();
+                        }
+                        
+                        // تحديث شريط التقدم
+                        const progress = data.total_files > 0 
+                            ? (data.files_searched / data.total_files) * 100 
+                            : 0;
+                        const progressBar = document.querySelector('.progress-fill');
+                        if (progressBar) {
+                            progressBar.style.width = progress + '%';
+                        }
+                    }
+                })
+                .catch(err => console.error('خطأ في التحديث:', err));
+        }
+        
+        // تحديث فوري عند تحميل الصفحة
+        updateStatus();
+        
+        // تحديث كل ثانية (أسرع من 2 ثانية)
+        setInterval(updateStatus, 1000);
+        {% endif %}
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>وظيفة البحث #{{ job.id }}</h1>
+            <a href="/dashboard" class="btn">العودة للوحة التحكم</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="job-header">
+            <h2 class="job-title">الكلمات المفتاحية: {{ job.keywords }}</h2>
+            
+            <div class="job-info">
+                <div class="info-item">
+                    <div class="info-label">الحالة</div>
+                    <div class="info-value">
+                        <span class="job-status status-{{ job.status }}">{{ job.status }}</span>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">عدد النتائج</div>
+                    <div class="info-value" id="matches-count">{{ "{:,}".format(job.matches_count or 0) }}</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">الملفات</div>
+                    <div class="info-value" id="files-progress">{{ job.files_searched }}/{{ job.total_files }}</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">تاريخ الإنشاء</div>
+                    <div class="info-value">{{ job.created_at }}</div>
+                </div>
+            </div>
+            
+            {% if job.status == 'running' %}
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {% if job.total_files > 0 %}{{ (job.files_searched / job.total_files * 100) }}{% else %}0{% endif %}%"></div>
+            </div>
+            {% endif %}
+            
+            {% if job.status == 'completed' and job.matches_count > 0 %}
+            <div class="actions">
+                <a href="/job/{{ job.id }}/download" class="btn-primary">📥 تحميل النتائج</a>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="results-section">
+            <div class="results-header">
+                <h3>النتائج (<span id="total-results">{{ "{:,}".format(total_results) }}</span>)</h3>
+            </div>
+            
+            {% if results %}
+                {% for result in results %}
+                <div class="result-item">
+                    <div class="result-meta">
+                        الملف: <strong>{{ result.file_name }}</strong> | السطر: {{ result.line_number }}
+                    </div>
+                    <div class="result-text">{{ result.line_text }}</div>
+                </div>
+                {% endfor %}
+                
+                {% if total_pages > 1 %}
+                <div class="pagination">
+                    {% if page > 1 %}
+                    <a href="/job/{{ job.id }}?page={{ page - 1 }}">السابق</a>
+                    {% endif %}
+                    
+                    {% for p in range(1, total_pages + 1) %}
+                        {% if p == page %}
+                        <span class="current">{{ p }}</span>
+                        {% else %}
+                        <a href="/job/{{ job.id }}?page={{ p }}">{{ p }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if page < total_pages %}
+                    <a href="/job/{{ job.id }}?page={{ page + 1 }}">التالي</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="empty-state">
+                    {% if job.status == 'running' %}
+                        جارٍ البحث... يرجى الانتظار
+                    {% elif job.status == 'pending' %}
+                        في انتظار البدء...
+                    {% else %}
+                        لا توجد نتائج
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+

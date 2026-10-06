@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - نظام البحث</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            font-size: 24px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .search-box h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .jobs-list {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .jobs-list h2 {
+            padding: 20px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .job-item {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .job-item:last-child {
+            border-bottom: none;
+        }
+        
+        .job-info {
+            flex: 1;
+        }
+        
+        .job-keywords {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .job-meta {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .job-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-running {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .job-actions {
+            margin-right: 20px;
+        }
+        
+        .btn-view {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .empty-state {
+            padding: 40px;
+            text-align: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔍 نظام البحث النصي المحلي</h1>
+            <div class="user-info">
+                <span>مرحباً، {{ user.username }}</span>
+                {% if is_admin_user %}
+                <a href="/admin/users" class="btn" style="margin-left: 10px;">👥 إدارة المستخدمين</a>
+                {% else %}
+                <span style="font-size: 12px; opacity: 0.8;">(مستخدم عادي)</span>
+                {% endif %}
+                <a href="/stats" class="btn" style="margin-left: 10px;">📊 الإحصائيات</a>
+                <a href="/logout" class="btn" style="margin-left: 10px;">تسجيل الخروج</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="search-box">
+            <h2>بحث جديد</h2>
+            <form method="POST" action="/search">
+                <div class="form-group">
+                    <label for="keywords">الكلمات المفتاحية (مفصولة بمسافات - AND):</label>
+                    <input type="text" id="keywords" name="keywords" 
+                           placeholder="مثال: error login failed" required>
+                </div>
+                <button type="submit" class="btn-primary">بدء البحث</button>
+            </form>
+        </div>
+        
+        {% if user_stats %}
+        <div class="search-box" style="margin-bottom: 20px;">
+            <h2>📊 إحصائياتي</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div>
+                    <div style="font-size: 12px; color: #666;">عمليات البحث</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #667eea;">{{ "{:,}".format(user_stats.total_jobs) }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; color: #666;">النتائج</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #667eea;">{{ "{:,}".format(user_stats.total_matches) }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; color: #666;">الأسطر المفحوصة</div>
+                    <div style="font-size: 24px; font-weight: 600; color: #667eea;">{{ "{:,}".format(user_stats.total_lines_processed) }}</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="jobs-list">
+            <h2>وظائف البحث السابقة</h2>
+            {% if jobs %}
+                {% for job in jobs %}
+                <div class="job-item">
+                    <div class="job-info">
+                        <div class="job-keywords">{{ job.keywords }}</div>
+                        <div class="job-meta">
+                            {% if job.matches_count %}
+                                النتائج: {{ "{:,}".format(job.matches_count) }} |
+                            {% endif %}
+                            الملفات: {{ job.files_searched }}/{{ job.total_files }} |
+                            التاريخ: {{ job.created_at }}
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <span class="job-status status-{{ job.status }}">{{ job.status }}</span>
+                        <a href="/job/{{ job.id }}" class="btn-view">عرض</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    لا توجد وظائف بحث بعد
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
