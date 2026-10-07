@@ -181,13 +181,13 @@
   },
   {
     "path": "docs/verification.ar.md",
-    "bytes": 2131,
-    "sha256": "7b30f330dcd93803b167c94b86448c52ad3f19f28a52e282ddbae5c5d178ffb0"
+    "bytes": 2146,
+    "sha256": "c2535d6b9d95f110b1fe945cc91fa9c66b20acfb4cdba2e7710675becb8e9638"
   },
   {
     "path": "docs/verification.md",
-    "bytes": 1888,
-    "sha256": "dc0f9f270026523a88b3dc9937421779484dd5ac73fbd1fe61bb04eeffa27a46"
+    "bytes": 1907,
+    "sha256": "606880474542c58a8296268edd86ec723d60e8f0dc877cabf864740a7c8e7b05"
   },
   {
     "path": "init_admin.py",
