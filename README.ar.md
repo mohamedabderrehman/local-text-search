@@ -103,6 +103,6 @@ SearchWorker -. optional .-> Cython
 - [دراسة المشروع](docs/case-study.ar.md)
 - [التحقق](docs/verification.ar.md)
 - [مخطط البنية](docs/architecture.svg)
-- [صفحة المشروع](https://mohamed-abderrehmane-portfolio.hillock-factual9mupt.chatgpt.site/ar/projects/local-text-search/)
+- [صفحة المشروع](https://mohamedabderrehmane.netlify.app/ar/projects/local-text-search/)
 
 - [تفاصيل هندسية ودروس التنفيذ](docs/engineering-notes.ar.md)
